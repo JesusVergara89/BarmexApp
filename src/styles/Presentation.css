@@ -103,7 +103,7 @@
         height: auto;
         position: absolute;
         right: 50PX;
-        top: 30px;
+        top: 70px;
     }
 
     .Presentation-img2 {
@@ -111,6 +111,107 @@
         height: auto;
         position: absolute;
         right: 50PX;
-        top: 210px;
+        top: 220px;
+    }
+}
+
+@media (400px < width<=700px) {
+    .Presentation {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 60px;
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+    .Presentation-description {
+        width: 50%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        padding-left: 50px;
+        margin-top: 50px;
+    }
+
+    .Presentation-description h2 {
+        font-size: 2rem;
+        color: var(--ship-cove-950);
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .Presentation-description p {
+        all: unset;
+        font-size: 1rem;
+        color: var(--ship-cove-950);
+        text-align: left;
+        width: 90%;
+    }
+
+
+    .Presentation-img1 {
+        width: 40%;
+        height: auto;
+        position: absolute;
+        right: 20PX;
+        top: 120px;
+    }
+
+    .Presentation-img2 {
+        width: 40%;
+        height: auto;
+        position: absolute;
+        right: 20PX;
+        top: 250px;
+    }
+}
+
+
+@media (width<=400px) {
+    .Presentation {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 60px;
+        position: relative;
+        padding-bottom: 20px;
+    }
+
+    .Presentation-description {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        padding-left: 18px;
+        margin-top: 50px;
+    }
+
+    .Presentation-description h2 {
+        font-size: 2rem;
+        color: var(--ship-cove-950);
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .Presentation-description p {
+        all: unset;
+        font-size: 1rem;
+        color: var(--ship-cove-950);
+        text-align: left;
+        width: 90%;
+    }
+
+
+    .Presentation-img1 {
+       display: none;
+    }
+
+    .Presentation-img2 {
+        display: none;
     }
 }

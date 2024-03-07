@@ -29,5 +29,4 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--ship-cove-100);
 }
