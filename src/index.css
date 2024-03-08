@@ -4,11 +4,6 @@
   font-style: normal;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
 :root {
   --ship-cove-50: #f2f7fb;
   --ship-cove-100: #e7f1f8;
@@ -22,6 +17,13 @@ body {
   --ship-cove-900: #404d6f;
   --ship-cove-950: #262d40;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ship-cove-50);
+}
+
 
 .SolarApp {
   width: 100%;
