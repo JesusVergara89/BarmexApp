@@ -39,43 +39,35 @@ const Instructions = () => {
                 <li>Calcular:
 
                     <h4>
-                        Haz clic en el botón "Calcular" para obtener los resultados.
+                        Haz clic en el botón "Calcular" para obtener los resultados. La herramienta te mostrará los datos calculados de manera inmediata. Aqui se incluyen las abreviaturas que se presentan y su explicación correspondiente.
                     </h4>
 
-                </li>
-                <li>Revisar los resultados:
-
-                    <h4>Observa los resultados proporcionados, incluyendo consumo promedio y mayor consumo.</h4>
-
+                    <h5><span>DOA:</span> Dias de autonomía</h5>
+                    <h5><span>AVIP:</span> valor promedio de la radiación en el lugar escogido.</h5>
+                    <h5><span>AVIPL:</span> valor promedio de la radiación con perdidas como FI y FS</h5>
+                    <h5><span>PRFM:</span> eficiencia del sistema, 40%</h5>
+                    <h5><span>LCAB:</span> Mayor consumo de acuerdo al 40% sobre la energía consumida por el sistema</h5>
+                    <h5><span>BB-XX-V:</span> Banco de baterias, donde XX corresponde al voltaje del banco, este valor viene en Ah/día.</h5>
                 </li>
                 <li>Seleccionar equipos:
 
-                    <h4>Explora la sección "Selección de equipos" para ajustar componentes del sistema solar.</h4>
-
-                </li>
-                <li>Cambiar datos:
-
-                    <h4>Si es necesario, puedes cambiar los datos de ubicación o consumo.</h4>
-
-                </li>
-                <li>Configurar el presupuesto:
-
-                    <h4>Ingresa los detalles de tu presupuesto, incluyendo costos estimados.</h4>
+                    <h4>
+                        Explora la sección "Selección de equipos" para ajustar componentes del sistema solar.
+                    </h4>
 
                 </li>
                 <li>Ver presupuesto:
 
-                    <h4>Revisa el presupuesto final y los detalles del sistema solar propuesto.</h4>
+                    <h4>
+                        Revisa el presupuesto final y los detalles del sistema solar propuesto.
+                    </h4>
 
                 </li>
                 <li>Regresar:
 
-                    <h4>Si necesitas volver atrás, selecciona la opción "Regresar".</h4>
-
-                </li>
-                <li>Revisar abreviaturas:
-
-                    <h4>Consulta el significado de las abreviaturas proporcionadas para comprender mejor los resultados.</h4>
+                    <h4>
+                        Si necesitas retroceder, elige la opción "Regresar" y ajusta los equipos según tus preferencias.
+                    </h4>
 
                 </li>
             </ol>

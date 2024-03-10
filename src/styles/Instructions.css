@@ -18,7 +18,7 @@
     padding: 20px;
     border-radius: 10px;
     position: absolute;
-    top: -540px;
+    top: -380px;
 }
 h1 {
     font-size: 1rem;
@@ -58,6 +58,10 @@ ul li {
 
 li img {
     width: 80%;
+}
+
+li h5 > span {
+    font-weight: bold;
 }
 
 @media (width <= 600px){
