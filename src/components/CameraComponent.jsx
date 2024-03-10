@@ -41,7 +41,6 @@ const CameraComponent = () => {
     return (
         <div className="camara-component">
             <div className="camara-component__upload-section">
-                <label htmlFor="upload">Subir imagen</label>
                 <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
             </div>
 
@@ -53,11 +52,12 @@ const CameraComponent = () => {
                 )}
                 {textResult && (
                     <div className="camara-component__text-result">
-                        <p>{extractNumbers(textResult).map((num, i) => (
-                            <div key={i}>
+                        
+                        <div className="camara-component__text-result-div">{extractNumbers(textResult).map((num, i) => (
+                            <div className="camara-component__text-result__data"  key={i}>
                                 {num}
                             </div>
-                        ))}</p>
+                        ))}</div>
                     </div>
                 )}
             </div>

@@ -1,0 +1,137 @@
+:root {
+    --ship-cove-50: #f2f7fb;
+    --ship-cove-100: #e7f1f8;
+    --ship-cove-200: #d3e3f2;
+    --ship-cove-300: #b8d1e9;
+    --ship-cove-400: #9bb7de;
+    --ship-cove-500: #829ed2;
+    --ship-cove-600: #758bc7;
+    --ship-cove-700: #586daa;
+    --ship-cove-800: #495a8a;
+    --ship-cove-900: #404d6f;
+    --ship-cove-950: #262d40;
+}
+
+.Data_input {
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.button-app-1 {
+    background-color: var(--ship-cove-950);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.form-deparments-and-data {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.Departments-tittle h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.select-panel-select {
+    width: 90%;
+    margin-top: 10px;
+}
+
+.input_form {
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.tittle-autonomy {
+    width: auto;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.Autonomy-days-form {
+    width: 150px;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.Autonomy-input {
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: var(--ship-cove-950);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.Equipment-selection {
+    width: 100%;
+    height: auto;
+    font-weight: bold;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    text-align: center;
+    border-top: 0.01rem solid var(--ship-cove-950);
+    padding-top: 10px;
+}
+
+.grid-1 {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: left;
+}
+
+.grid-1 h3 {
+    all: unset;
+    width: 100%;
+    text-align: center;
+}
+
+.grid-1 .span-1 {
+    font-weight: bold;
+}
+
+.grid-1 .span-2 {
+    color: red;
+    font-weight: bold;
+}
+

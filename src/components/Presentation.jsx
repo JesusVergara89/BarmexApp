@@ -1,6 +1,5 @@
 import React from 'react'
 import '../styles/Presentation.css'
-import plug from '../assets/plug.svg'
 import eplug from '../assets/eplug.svg'
 
 const Presentation = () => {
@@ -12,7 +11,6 @@ const Presentation = () => {
                     Descubre el potencial de la energía solar con nuestra avanzada calculadora de instalación fotovoltaica. Ya sea que busques reducir tus costos energéticos o contribuir activamente a la preservación del medio ambiente, esta herramienta te proporciona una visión clara y detallada de los beneficios económicos y ambientales de la energía solar en tu hogar o negocio.
                 </p>
             </div>
-            <img className='Presentation-img1' src={plug} alt="plug" /> 
             <img className='Presentation-img2' src={eplug} alt="plug" /> 
         </article>
     )

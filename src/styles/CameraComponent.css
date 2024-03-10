@@ -13,21 +13,27 @@
 }
 
 .camara-component {
+    width: 90%;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    gap: 20px;
+    padding: 10px;
 }
 
 .camara-component__upload-section {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
     margin-bottom: 20px;
-}
-
-.camara-component__upload-section label {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    background-color: var(--ship-cove-800);
 }
 
 .camara-component__image-section {
@@ -37,23 +43,42 @@
 }
 
 .camara-component__box-image img {
-    width: 200px;
+    width: 250px;
     height: auto;
-    border: 2px solid #ccc;
+    border: 2px solid var(--ship-cove-950);
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
 .camara-component__text-result {
-    margin-top: 10px;
+    width: 90%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--ship-cove-950);
+    color: var(--ship-cove-900);
+    padding: 15px;
+    border-radius: 5px;
 }
 
-.camara-component__text-result p {
-    font-size: 16px;
-    line-height: 1.5;
-    text-align: center;
+.camara-component__text-result-div{
+    width: 95%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
-.camara-component__text-result div {
-    margin-bottom: 5px;
+.camara-component__text-result__data {
+    width: 50px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    background-color: var(--ship-cove-100);
+    padding: 5px;
 }

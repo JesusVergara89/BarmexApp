@@ -1,0 +1,289 @@
+:root {
+    --primary-color: #ccc; /* Gris claro */
+    --secondary-color: #000; /* Negro */
+    --ship-cove-50: #f2f7fb;
+    --ship-cove-100: #e7f1f8;
+    --ship-cove-200: #d3e3f2;
+    --ship-cove-300: #b8d1e9;
+    --ship-cove-400: #9bb7de;
+    --ship-cove-500: #829ed2;
+    --ship-cove-600: #758bc7;
+    --ship-cove-700: #586daa;
+    --ship-cove-800: #495a8a;
+    --ship-cove-900: #404d6f;
+    --ship-cove-950: #262d40;
+}
+
+.general-budget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 7px;
+    gap: 5px;
+}
+
+.grid-buttons-budget {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.general-budget .grid-buttons-budget button {
+    width: 80%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+}
+
+.grid-buttons-budget h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 130px;
+    font-weight: bold;
+    height: 18px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-size: 13px;
+}
+
+.grid-buttons-budget .grid-buttons-budget-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    gap: 8px;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 300px) {
+    .grid-buttons-budget-1 h3 {
+        font-size: 0.7rem;
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+    .grid-buttons-budget-1 h3 {
+        font-size: 0.7rem;
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 800px) {
+    .grid-buttons-budget-1 h3 {
+        font-size: 0.7rem;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .grid-buttons-budget-1 h3 {
+        font-size: 0.7rem;
+    }
+}
+
+.budget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: min(290px, 100%);
+    padding: 15px;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    border: 2px solid var(--secondary-color);
+    gap: 5px;
+}
+
+@media only screen and (min-width: 220px) and (max-width: 249px) {
+    .budget {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: min(290px, 100%);
+        padding: 15px;
+        border-radius: 6px;
+        background-color: var(--primary-color);
+        border: 2px solid var(--secondary-color);
+        gap: 5px;
+        transform: scale(0.85);
+    }
+}
+
+@media only screen and (min-width: 250px) and (max-width: 300px) {
+    .budget {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: min(290px, 100%);
+        padding: 15px;
+        border-radius: 6px;
+        background-color: var(--primary-color);
+        border: 2px solid var(--secondary-color);
+        gap: 5px;
+        transform: scale(0.9);
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 375px) {
+    .budget {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: min(290px, 100%);
+        padding: 15px;
+        border-radius: 6px;
+        background-color: var(--primary-color);
+        border: 2px solid var(--secondary-color);
+        gap: 5px;
+        transform: scale(0.95);
+    }
+}
+
+
+@media only screen and (min-width: 0px) and (max-width: 300px) {
+    .budget .Select-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 20px;
+        font-size: 0.75rem;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        background-color: var(--ship-cove-950);
+        color: var(--primary-color);
+        border: 2px solid var(--secondary-color);
+        border-radius: 6px;
+    }
+}
+
+@media only screen and (min-width: 300px) {
+    .budget .Select-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 20px;
+        font-size: 0.78rem;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        background-color: var(--ship-cove-950);
+        color: var(--primary-color);
+        border: 2px solid var(--secondary-color);
+        border-radius: 6px;
+    }
+}
+
+
+.budget-panel-quantity {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+    width: 290px;
+    column-gap: 2px;
+}
+
+.budget-panel-quantity-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+    width: 140px;
+}
+
+.budget-panel-quantity-row-reduce {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+    width: 80px;
+}
+
+.budget-panel-quantity-row-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 140px;
+    row-gap: 5px;
+}
+
+.budget-panel-quantity-row-1-reduce {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+    row-gap: 5px;
+}
+
+
+.budget-panel-quantity-1 {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--secondary-color);
+    border-radius: 6px 0 0 6px;
+    padding: 3px;
+    height: 25px;
+    background-color: var(--primary-color);
+}
+
+.budget-panel-quantity-1-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--secondary-color);
+    border-radius: 0 6px 6px 0;
+    padding: 3px;
+    height: 25px;
+    background-color: var(--primary-color);
+}
+
+@media only screen and (min-width: 0px) and (max-width: 300px) {
+    .budget-panel-quantity-1 h3 {
+        font-size: 0.75rem;
+    }
+
+    .budget-panel-quantity-1-1 h3 {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+    .budget-panel-quantity-1 h3 {
+        font-size: 0.75rem;
+    }
+
+    .budget-panel-quantity-1-1 h3 {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 500px) {
+    .budget-panel-quantity-1 h3 {
+        font-size: 0.75rem;
+    }
+
+    .budget-panel-quantity-1-1 h3 {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}

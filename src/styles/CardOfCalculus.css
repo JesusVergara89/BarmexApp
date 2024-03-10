@@ -1,0 +1,38 @@
+.article-calculus {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.Technical-information {
+    margin-bottom: 20px;
+}
+
+.Technical-information-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.Technical-information-grid-1 {
+    grid-column: 1 / 2;
+}
+
+.Technical-information-grid-2 {
+    grid-column: 2 / 3;
+}
+
+.Technical-information-grid-1-h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.Technical-information-grid-geo {
+    grid-column: 1 / 2;
+}
+
+.Technical-information-grid-geo-1 {
+    grid-column: 2 / 3;
+}

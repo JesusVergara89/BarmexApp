@@ -45,15 +45,6 @@
         text-align: left;
     }
 
-
-    .Presentation-img1 {
-        width: 20%;
-        height: auto;
-        position: absolute;
-        right: 150PX;
-        top: 30px;
-    }
-
     .Presentation-img2 {
         width: 20%;
         height: auto;
@@ -95,15 +86,6 @@
         font-size: 1.3rem;
         color: var(--ship-cove-950);
         text-align: left;
-    }
-
-
-    .Presentation-img1 {
-        width: 30%;
-        height: auto;
-        position: absolute;
-        right: 50PX;
-        top: 70px;
     }
 
     .Presentation-img2 {
@@ -151,15 +133,6 @@
         width: 90%;
     }
 
-
-    .Presentation-img1 {
-        width: 40%;
-        height: auto;
-        position: absolute;
-        right: 20PX;
-        top: 120px;
-    }
-
     .Presentation-img2 {
         width: 40%;
         height: auto;
@@ -203,11 +176,6 @@
         color: var(--ship-cove-950);
         text-align: left;
         width: 90%;
-    }
-
-
-    .Presentation-img1 {
-       display: none;
     }
 
     .Presentation-img2 {
