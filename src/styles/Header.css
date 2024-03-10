@@ -20,7 +20,6 @@ header {
     height: 70px;
     background-color: var(--ship-cove-900);
     color: var(--ship-cove-100);
-    padding: 10px;
     box-sizing: border-box;
     z-index: 1000;
     display: flex;

@@ -33,10 +33,10 @@
 }
 
 .information{
-    width: 40%;
-    height: auto;
+    width: 35%;
+    height: 1000px;
     display: flex;
-    background-color: var(--ship-cove-500); 
+    position: relative;
 }
 
 @media (width <= 600px){
@@ -59,8 +59,8 @@
     
     .information{
         width: 100%;
-        height: auto;
+        height: 500px;
         display: flex;
-        background-color: var(--ship-cove-500); 
+        position: relative;
     }
 }
