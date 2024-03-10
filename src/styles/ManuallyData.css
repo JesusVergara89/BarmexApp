@@ -45,13 +45,15 @@
     margin-top: 20px;
 }
 
-.Departments-tittle h3 {
+.choose-place {
+    width: 50%;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
 .select-panel-select {
-    width: 90%;
+    width: 50%;
     margin-top: 10px;
 }
 

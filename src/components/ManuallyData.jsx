@@ -215,7 +215,7 @@ const ManuallyData = () => {
                 :
                 <div className='form-deparments-and-data'>
 
-                    <div className='Deparments-tittle' ><h3>Elegir departamento</h3></div>
+                   <h3 className='choose-place'>Elegir departamento</h3>
 
                     <Select className='select-panel-select'
                         options={arrayOfDeparments}
