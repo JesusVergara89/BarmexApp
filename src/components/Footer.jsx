@@ -1,5 +1,6 @@
 import React from 'react'
 import '../styles/Footer.css'
+import SinginAuth from '../Auth/SinginAuth'
 
 const Footer = () => {
   return (
@@ -13,12 +14,7 @@ const Footer = () => {
 
       <div className="formulario-contacto">
         <h3>Formulario de Contacto</h3>
-        <form action="enviar.php" method="post">
-          <input type="text" name="nombre" placeholder="Nombre" required />
-          <input type="email" name="email" placeholder="Correo electrónico" required />
-          <textarea name="mensaje" placeholder="Mensaje" required></textarea>
-          <button type="submit">Enviar</button>
-        </form>
+        <SinginAuth/>
       </div>
     </footer>
   )
