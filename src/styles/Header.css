@@ -32,6 +32,7 @@ header h1 {
   height: auto;
   font-size: 1rem;
   text-align: center;
+  padding-left: 10px;
 }
 
 .header-social {
