@@ -21,12 +21,11 @@ footer .informacion-empresa {
 
 footer .formulario-contacto {
     width: 40%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin-bottom: 50px;
 }
 
 .informacion-empresa h3 {
@@ -50,9 +49,9 @@ footer a:hover {
     color: #000;
 }
 
-footer input[type="text"],
-footer input[type="email"],
-footer textarea {
+.formulario-contacto input[type="text"],
+.formulario-contacto input[type="email"],
+.formulario-contacto textarea {
     width: 80%;
     padding: 10px;
     margin-bottom: 10px;
@@ -60,7 +59,15 @@ footer textarea {
     border-radius: 5px;
 }
 
-footer button {
+.formulario-contacto form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-contacto button {
+    width: 100px;
     padding: 10px 20px;
     border: none;
     background-color: #333;
