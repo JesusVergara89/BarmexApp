@@ -1,0 +1,66 @@
+:root {
+    --ship-cove-50: #f2f7fb;
+    --ship-cove-100: #e7f1f8;
+    --ship-cove-200: #d3e3f2;
+    --ship-cove-300: #b8d1e9;
+    --ship-cove-400: #9bb7de;
+    --ship-cove-500: #829ed2;
+    --ship-cove-600: #758bc7;
+    --ship-cove-700: #586daa;
+    --ship-cove-800: #495a8a;
+    --ship-cove-900: #404d6f;
+    --ship-cove-950: #262d40;
+}
+
+.employee-login-main {
+    width: 270px;
+    height: 400px;
+    padding: 10px;
+}
+
+.employee-login-form {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.employee-login-register {
+    width: 90%;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.employee-login-email,
+.employee-login-password {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-hiden {
+    text-align: right;
+}
+
+.employee-login-btn {
+    width: 100px;
+    padding: 10px;
+    background-color: var(--ship-cove-950);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.employee-login-btn:hover {
+    background-color: var(--ship-cove-700);
+}

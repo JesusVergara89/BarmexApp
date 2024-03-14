@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './components/Header'
-import Presentation from './components/Presentation'
-import BodyContainer from './components/BodyContainer'
-import Footer from './components/Footer'
+import { Route, Routes } from 'react-router-dom'
+import Comments from './components/Comments'
+import Home from './components/Home'
 
 function SolarApp() {
+  const [logInLogOut, setLogInLogOut] = useState(true)
   return (
     <div className="SolarApp">
-      <Header />
-      <Presentation />
-      <BodyContainer/>
-      <Footer/>
+      <Header logInLogOut={logInLogOut} setLogInLogOut={setLogInLogOut} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/comments" element={<Comments setLogInLogOut={setLogInLogOut} />} />
+      </Routes>
     </div>
   )
 }

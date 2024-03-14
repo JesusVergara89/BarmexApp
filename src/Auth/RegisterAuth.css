@@ -47,3 +47,20 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+.login-hiden {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: ceter;
+}
+
+.login-hiden .bx{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.login-hiden .bx:hover{
+    cursor: pointer;
+}

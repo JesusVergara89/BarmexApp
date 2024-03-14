@@ -161,6 +161,7 @@
         flex-direction: column;
         padding-left: 18px;
         margin-top: 50px;
+        padding-left: 10px;
     }
 
     .Presentation-description h2 {

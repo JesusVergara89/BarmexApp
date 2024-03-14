@@ -1,0 +1,19 @@
+.Home {
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (width<= 400px){
+    .Home {
+        width: 98%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }  
+}

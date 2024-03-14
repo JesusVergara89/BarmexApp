@@ -35,14 +35,18 @@ header h1 {
   padding-left: 10px;
 }
 
-.header-social {
+.header-login{
   width: 50%;
   height: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: end;
   align-items: center;
 }
 
-.header-social .bx {
-  font: 1.7rem;
+.header-login a {
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: var(--ship-cove-100);
+    padding-right: 20px;
 }
+
