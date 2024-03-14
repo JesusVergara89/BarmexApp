@@ -48,7 +48,6 @@ const RegisterAuth = ({ auth, createOrSignIn }) => {
                 <button onClick={handleSingUp} className="form-register-btn">Register</button>
             </div>
             <h3>Si tienes una cuenta accede</h3>
-            <h3>Sign in</h3>
             <button onClick={createOrSignIn} className="form-register-btn">Sing in</button>
         </article>
     )

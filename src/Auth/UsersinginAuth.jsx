@@ -40,7 +40,6 @@ const UsersinginAuth = ({ auth, createOrSignIn, authFunction }) => {
         <button onClick={handleLogin} className="form-register-btn">Login</button>
       </div>
       <h3>Si no tienes una cuenta creala</h3>
-      <h3>Create an account</h3>
       <button onClick={createOrSignIn} className="form-register-btn">Create</button>
     </article>
   )

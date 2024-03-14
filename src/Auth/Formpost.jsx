@@ -53,10 +53,9 @@ const Formpost = ({authFunction1}) => {
     <article className="Form-post-container">
       <button className="Form-post-save" onClick={() => { signOut(auth); authFunction1()  }}>Sign out</button>
       <div className="Form-post">
-        <h3 className="Form-post-title">Create post</h3>
         <input placeholder='Name' type="text" name="name" className="Form-post-title" value={formData.name} onChange={(e) => handleChange(e)} />
         <input placeholder='Email' type="email" name="email" className="Form-post-title" value={formData.email} onChange={(e) => handleChange(e)} />
-        <textarea placeholder='Description' name="description" className="Form-post-description" value={formData.description} onChange={(e) => handleChange(e)} />
+        <textarea placeholder='Comments' name="description" className="Form-post-description" value={formData.description} onChange={(e) => handleChange(e)} />
         <button className="Form-post-save" onClick={handlePublish}>Publish</button>
       </div>
     </article>
