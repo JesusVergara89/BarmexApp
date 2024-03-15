@@ -225,15 +225,15 @@ const ManuallyData = () => {
 
                     <form className='input_form' onSubmit={handleSubmit(submit)} >
                         <div className='tittle-autonomy'>Dias de autonomía</div>
-                        <input className='Autonomy-days-form' type="text" autoComplete='off' placeholder='Autonomía' {...register('autonomy')} />
+                        <input className='Autonomy-days-form' type="number" autoComplete='off' placeholder='Autonomía' {...register('autonomy')} />
                         <div className='tittle-autonomy' ><h3>Consumo</h3></div>
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6')} />
+                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7')} />
 
                         <button>Calcular</button>
 

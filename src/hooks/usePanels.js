@@ -4,6 +4,7 @@ const usePanels = () => {
     const arrayOfPanels = [
         {
             Power: 100,
+            Voltaje: 12,
             Price: 283900,
             Ref: 'RTM-100P',
             Pmax: 100,
@@ -24,6 +25,7 @@ const usePanels = () => {
 
         {
             Power: 160,
+            Voltaje: 12,
             Price: 475000,
             Ref: 'RT6E-150-170P',
             Pmax: 160, // Rated power in watts (Wp)
@@ -44,6 +46,7 @@ const usePanels = () => {
 
         {
             Power: 290,
+            Voltaje: 24,
             Price: 598900,
             Ref: 'RT6C-P',
             Pmax: 290, // Rated power in watts (Wp)
@@ -64,6 +67,7 @@ const usePanels = () => {
 
         {
             Power: 330,
+            Voltaje: 24,
             Price: 720000,
             Ref: 'LNSF-330P',
             Pmax: 330,
@@ -84,6 +88,7 @@ const usePanels = () => {
 
         {
             Power: 400,
+            Voltaje:24,
             Price: 796000,
             Ref: 'JAM54S30',
             Pmax: 400,
@@ -104,6 +109,7 @@ const usePanels = () => {
 
         {
             Power: 500,
+            Voltaje: 48,
             Price: 1075000,
             Ref: 'TSM-DE18M(II)',
             Pmax: 500,

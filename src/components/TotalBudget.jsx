@@ -1,8 +1,8 @@
 import React from 'react'
 import '../styles/TotalBudget.css'
 
-const TotalBudget = ({ data_to_show }) => {
-    //console.log(data_to_show)
+const TotalBudget = ({ sumOfValuesP, sumOfValuesBattery, sumOfValuesRegulator, sumOfValuesinversor, TensionSystem }) => {
+    let Total = Math.ceil(sumOfValuesP?.PriceTotal + sumOfValuesBattery?.PriceTotal + sumOfValuesRegulator?.PriceRegulador + sumOfValuesRegulator?.PriceReguladorAd + sumOfValuesinversor?.PriceTotal)
     return (
         <article className='Total-budget-car'>
 
@@ -13,30 +13,30 @@ const TotalBudget = ({ data_to_show }) => {
                 <h3 className='left-border'>Precio</h3>
 
                 <div className='center-tittle-1'>Paneles</div>
-                <div className='center-tittle-2'>{`${data_to_show.quantity_OfPanels} uds`}</div>
-                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(data_to_show.value_OfPanels))}`}</div>
+                <div className='center-tittle-2'>{`${sumOfValuesP ? sumOfValuesP.Cant : 0} uds`}</div>
+                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(sumOfValuesP ? sumOfValuesP.PriceTotal : 0))}`}</div>
 
                 <div className='center-tittle-1'>Baterias</div>
-                <div className='center-tittle-2'>{`${data_to_show.sumOf_ValuesBattery} uds`}</div>
-                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(data_to_show.value_OfBattery))}`}</div>
+                <div className='center-tittle-2'>{`${sumOfValuesBattery ? sumOfValuesBattery.Cant : 0} uds`}</div>
+                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(sumOfValuesBattery ? sumOfValuesBattery.PriceTotal : 0))}`}</div>
 
                 <div className='center-tittle-1'>Micro <br /> inversores</div>
-                <div className='center-tittle-2'>{`${data_to_show.quantity_Inverters} uds`}</div>
-                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(data_to_show.value_OfInverters))}`}</div>
+                <div className='center-tittle-2'>{`${sumOfValuesinversor ? sumOfValuesinversor.Cant : 0} uds`}</div>
+                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(sumOfValuesinversor ? sumOfValuesinversor.PriceTotal : 0))}`}</div>
 
                 <div className='center-tittle-1'>Regulador <br /> principal</div>
-                <div className='center-tittle-2'>{`${data_to_show.quantity_MainRegulator} uds`}</div>
-                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(data_to_show.value_OfRegulator))}`}</div>
+                <div className='center-tittle-2'>{`${sumOfValuesRegulator ? sumOfValuesRegulator.Cant_Regulators : 0} uds`}</div>
+                <div className='center-tittle-3'>{`$ ${new Intl.NumberFormat().format(Math.ceil(sumOfValuesRegulator ? sumOfValuesRegulator.PriceRegulador : 0))}`}</div>
 
                 <div className='center-tittle-1-1'>Regulador <br /> secundario</div>
-                <div className='center-tittle-2-1'>{`${data_to_show.quantity_NonZero} uds`}</div>
-                <div className='center-tittle-3-1'>{`$ ${new Intl.NumberFormat().format(Math.ceil(data_to_show.value_OfAdditionalRegulator))}`}</div>
+                <div className='center-tittle-2-1'>{`${sumOfValuesRegulator ? sumOfValuesRegulator.Cant_RegulatorsAd : 0} uds`}</div>
+                <div className='center-tittle-3-1'>{`$ ${new Intl.NumberFormat().format(Math.ceil(sumOfValuesRegulator ? sumOfValuesRegulator.PriceReguladorAd : 0))}`}</div>
 
             </div>
 
             <div className='total-grind-price'>
                 <div className='total-name-total'>Total</div>
-                <div className='total-price-total'>{`$ ${new Intl.NumberFormat().format(Math.ceil(data_to_show.total_BudgetValue))}`}</div>
+                <div className='total-price-total'>{`$ ${new Intl.NumberFormat().format(Math.ceil(Total ? Total : 0))}`}</div>
             </div>
 
             <h3 className='chose-system-1'> &#9660; {`Sistema elegido`} &#9660;</h3>
@@ -50,32 +50,32 @@ const TotalBudget = ({ data_to_show }) => {
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Paneles</div>
-                    <div className='equipment-characteristic-1'>{`${data_to_show.panel_Type} W`}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesP ? sumOfValuesP.Ref_Potencia : 0}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Baterias</div>
-                    <div className='equipment-characteristic-1'>{`${data_to_show.battery_Type} Ah`}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesBattery ? sumOfValuesBattery.Ref_Corriente : 0}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Inversores</div>
-                    <div className='equipment-characteristic-1'>{`${data_to_show.inverter_Type} W`}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesinversor ? sumOfValuesinversor.Ref_Power : 0}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Regulador principal</div>
-                    <div className='equipment-characteristic-1'>{`${data_to_show.typpe_main_regulator} Amp`}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesRegulator ? sumOfValuesRegulator.Ref_Corriente : 0}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Regulador adicional</div>
-                    <div className='equipment-characteristic-1'>{`${data_to_show.type_additional_regulator} Amp`}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesRegulator ? sumOfValuesRegulator.Ref_CorrienteAd : 0}</div>
                 </div>
 
                 <div className='technical-specifications'>
-                    <div className='equipment-description-2'>Voltage</div>
-                    <div className='equipment-characteristic-2'>{`${data_to_show.voltage_Type} V`}</div>
+                    <div className='equipment-description-2'>Tension del Sistema</div>
+                    <div className='equipment-characteristic-2'>{TensionSystem ? TensionSystem : 0}</div>
                 </div>
 
             </div>
