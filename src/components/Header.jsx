@@ -10,7 +10,10 @@ const Header = ({ logInLogOut, setLogInLogOut }) => {
 
   const navigate = useNavigate()
 
-  const ToHome = () => navigate("/")
+  const ToHome = () => {
+    navigate("/")
+    funtionLogout()
+  }
 
   return (
     <header>
