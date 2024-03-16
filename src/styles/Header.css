@@ -1,32 +1,56 @@
 :root {
-    --ship-cove-50: #f2f7fb;
-    --ship-cove-100: #e7f1f8;
-    --ship-cove-200: #d3e3f2;
-    --ship-cove-300: #b8d1e9;
-    --ship-cove-400: #9bb7de;
-    --ship-cove-500: #829ed2;
-    --ship-cove-600: #758bc7;
-    --ship-cove-700: #586daa;
-    --ship-cove-800: #495a8a;
-    --ship-cove-900: #404d6f;
-    --ship-cove-950: #262d40;
+  --ship-cove-50: #f2f7fb;
+  --ship-cove-100: #e7f1f8;
+  --ship-cove-200: #d3e3f2;
+  --ship-cove-300: #b8d1e9;
+  --ship-cove-400: #9bb7de;
+  --ship-cove-500: #829ed2;
+  --ship-cove-600: #758bc7;
+  --ship-cove-700: #586daa;
+  --ship-cove-800: #495a8a;
+  --ship-cove-900: #404d6f;
+  --ship-cove-950: #262d40;
 }
 
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background-color: var(--ship-cove-900);
-    color: var(--ship-cove-100);
-    box-sizing: border-box;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--ship-cove-900);
+  color: var(--ship-cove-100);
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  header h1 {
-    font-size: 1rem;
-  }
+header h1 {
+  width: auto;
+  height: auto;
+  font-size: 1rem;
+  text-align: center;
+  padding-left: 10px;
+}
+
+header h1:hover {
+ cursor: pointer;
+}
+
+.header-login{
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.header-login a {
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: var(--ship-cove-100);
+    padding-right: 20px;
+}
+

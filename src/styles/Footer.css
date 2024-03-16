@@ -1,0 +1,121 @@
+footer {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 450px;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 50px;
+    gap: 10px;
+}
+
+footer .informacion-empresa {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 60px;
+}
+
+footer .formulario-contacto {
+    width: 55%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.informacion-empresa h3 {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.formulario-contacto h3 {
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #666;
+}
+
+footer a:hover {
+    color: #000;
+}
+
+.formulario-contacto form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-contacto button {
+    width: 100px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.formulario-contacto button:hover {
+    background-color: #555;
+}
+
+@media (width <= 550px){
+    footer {
+        bottom: 0;
+        left: 0;
+        width: 90%;
+        height: auto;
+        background-color: #f2f2f2;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 100px;
+        padding-bottom: 50px;
+    }
+    
+    footer .informacion-empresa {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 15px;
+    }
+    
+    footer .formulario-contacto {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+    .informacion-empresa h3 {
+        color: #333;
+        font-size: 0.8rem;
+    }
+
+    .informacion-empresa  p {
+        color: #333;
+        font-size: 0.8rem;
+    }
+    
+}
