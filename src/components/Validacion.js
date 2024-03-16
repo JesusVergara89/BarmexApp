@@ -2,6 +2,6 @@ const Autonomia = (value) => {
     return value <= 5
 }
 const Consumo = (value) => {
-    return value <= 12000
+    return value <= 1200
 }
 export { Autonomia, Consumo }
