@@ -1,10 +1,10 @@
 import React from 'react'
 import '../styles/TotalBudget.css'
 
-const TotalBudget = ({ sumOfValuesP, sumOfValuesBattery, sumOfValuesRegulator, sumOfValuesinversor, TensionSystem }) => {
+const TotalBudget = ({ sumOfValuesP, sumOfValuesBattery, sumOfValuesRegulator, sumOfValuesinversor, TensionSystem, budgetChange }) => {
     let Total = Math.ceil(sumOfValuesP?.PriceTotal + sumOfValuesBattery?.PriceTotal + sumOfValuesRegulator?.PriceRegulador + sumOfValuesRegulator?.PriceReguladorAd + sumOfValuesinversor?.PriceTotal)
     return (
-        <article className='Total-budget-car'>
+        <article className={budgetChange ? 'Total-budget-car':'Total-budget-car on'}>
 
             <div className='budget-grid'>
 

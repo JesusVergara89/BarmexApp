@@ -2,7 +2,7 @@ import '../styles/CardOfCalculus.css'
 
 const CardOfCalculus = ({ consumptionOverDimension,
     arrayOfCurrent, largerConsuption, location,
-    autonomy_Days, longitudeOfPLace, latitudeOfPLace, propIrradiation }) => {
+    autonomy_Days, longitudeOfPLace, latitudeOfPLace, propIrradiation, isShow, totalShow }) => {
 
     let PF = 'PF-South'
 
@@ -83,11 +83,11 @@ const CardOfCalculus = ({ consumptionOverDimension,
     }
 
     angleOfPanels = analysisOfData(latitudeOfPLace)
-/*
-    let anglesTestX=analysisOfData(5.38)
-
-    console.log(anglesTestX)
-*/
+    /*
+        let anglesTestX=analysisOfData(5.38)
+    
+        console.log(anglesTestX)
+    */
 
     const directionOfPanelFace = (data) => {
         if (data > 0) {
@@ -106,7 +106,7 @@ const CardOfCalculus = ({ consumptionOverDimension,
 
 
     return (
-        <article className='article-calculus'>
+        <article className={isShow ? 'article-calculus' : 'article-calculus on'}>
 
             <div className='Technical-information' >
 
@@ -124,8 +124,14 @@ const CardOfCalculus = ({ consumptionOverDimension,
                     <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>PRFM:</h3></div>
                     <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${R}`}</h3> </div>
 
-                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>LCAB:</h3></div>
-                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${consumptionOverDimension} Wh/día`}</h3> </div>
+                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>Larger Consuption:</h3></div>
+                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3 here'>{`${consumptionOverDimension} Wh/día`}</h3> </div>
+
+                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>Average Consuption:</h3></div>
+                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3 here'>{`${totalShow} kWh/mes`}</h3> </div>
+
+                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>Average Consuption:</h3></div>
+                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3 here'>{`${totalShow} kWh/mes`}</h3> </div>
 
                     <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>BB12V:</h3></div>
                     <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${C12} Ah/día`}</h3> </div>

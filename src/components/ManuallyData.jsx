@@ -132,14 +132,15 @@ const ManuallyData = () => {
         consumption7: ""
     }
 
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, formState: { errors }
+    } = useForm()
     const [dataOrigin, setDataOrigin] = useState(defaultData)
     const [isShow, setIsShow] = useState(false)
 
 
     const submit = (data) => {
         setDataOrigin(data)
-        reset(defaultReset)
+        //reset(defaultReset)
         setIsShow(!isShow)
     }
 
@@ -209,69 +210,161 @@ const ManuallyData = () => {
 
             <button className='button-app-1' onClick={submit1}>{isShow ? 'Regresar' : 'Ver datos'}</button>
 
-            {isShow ?
+            <div className={!isShow ? 'form-deparments-and-data' : 'form-deparments-and-data on'}>
 
-                ''
-                :
-                <div className='form-deparments-and-data'>
+                <h3 className='choose-place'>Elegir locación</h3>
 
-                   <h3 className='choose-place'>Elegir locación</h3>
+                <Select className='select-panel-select'
+                    options={arrayOfDeparments}
+                    onChange={handleSelectionIrradiation}
+                    defaultValue={'Select department'}
+                />
 
-                    <Select className='select-panel-select'
-                        options={arrayOfDeparments}
-                        onChange={handleSelectionIrradiation}
-                        defaultValue={'Select department'}
-                    />
+                <form className='input_form' onSubmit={handleSubmit(submit)} >
+                    <div className='tittle-autonomy'>Dias de autonomía</div>
+                    <div className={(errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Autonomía' {...register('autonomy', { required: true, pattern: /^\d+(\.\d+)?$/ })}
+                            />
+                            {errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern' ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.autonomy ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.autonomy?.type === 'required' &&
+                            <p>Este campo es obligatorio. Por favor, asegúrate de completarlo.</p>
+                        }
 
-                    <form className='input_form' onSubmit={handleSubmit(submit)} >
-                        <div className='tittle-autonomy'>Dias de autonomía</div>
-                        <input className='Autonomy-days-form' type="number" autoComplete='off' placeholder='Autonomía' {...register('autonomy')} />
-                        <div className='tittle-autonomy' ><h3>Consumo</h3></div>
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1')} />
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2')} />
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3')} />
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4')} />
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5')} />
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6')} />
-                        <input className='Autonomy-input' type="number" autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7')} />
+                        {errors.autonomy?.type === 'pattern'
+                            && <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                    </div>
+                    <div className='tittle-autonomy' ><h3>Consumo</h3></div>
+                    <div className={(errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1', { required: true, pattern: /^\d+(\.\d+)?$/ })} />
+                            {/*Mensaje de error y icono */}
+                            {errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern' ? <i className='bx bxs-x-circle'></i>
+                                : errors.consumption1 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption1?.type === 'required' &&
+                            <p>Este campo es obligatorio. Por favor, asegúrate de completarlo.</p>
+                        }
+                        {errors.consumption1?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                    </div>
+                    <div className={errors.consumption2?.type === 'pattern' ? "error on" : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption2?.type === 'pattern') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.consumption2 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption2?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                    </div>
+                    <div className={errors.consumption3?.type ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption3?.type === 'pattern') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.consumption3 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption3?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                    </div>
+                    <div className={errors.consumption4?.type ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption4?.type === 'pattern') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.consumption4 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption4?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                    </div>
+                    <div className={errors.consumption5?.type ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption5?.type === 'pattern') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.consumption5 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption5?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                    </div>
+                    <div className={errors.consumption6?.type ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption6?.type === 'pattern') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.consumption6 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption6?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                    </div>
+                    <div className={errors.consumption7?.type ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption7?.type === 'pattern') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : errors.consumption7 ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption7?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                    </div>
 
-                        <button>Calcular</button>
+                    <button>Calcular</button>
 
-                    </form>
+                </form>
 
-                </div>
-            }
-
-            {
-                isShow ?
-                    <CardOfCalculus
-                        consumptionOverDimension={consumptionOverDimension}
-                        arrayOfCurrent={arrayOfCurrent}
-                        largerConsuption={largerConsuption}
-                        location={location}
-                        autonomy_Days={autonomy_Days}
-                        latitudeOfPLace={latitudeOfPLace}
-                        longitudeOfPLace={longitudeOfPLace}
-                        setIsShow={setIsShow}
-                        isShow={isShow}
-                        propIrradiation={propIrradiation}
-                    />
-                    :
-                    ''
-            }
-
+            </div >
+            <CardOfCalculus
+                consumptionOverDimension={consumptionOverDimension}
+                arrayOfCurrent={arrayOfCurrent}
+                largerConsuption={largerConsuption}
+                location={location}
+                autonomy_Days={autonomy_Days}
+                latitudeOfPLace={latitudeOfPLace}
+                longitudeOfPLace={longitudeOfPLace}
+                setIsShow={setIsShow}
+                isShow={isShow}
+                propIrradiation={propIrradiation}
+                totalShow={totalShow}
+            />
+            {/*
             <div className='grid-1'>
                 <h3><span className='span-1'>Average Consuption: </span> <br /> <span className="span-2">{` ${totalShow} kWh/mes`}</span>  </h3>
 
                 <h3><span className='span-1'>Larger consuption: </span> <br /> <span className="span-2">{`${largerConsuptionShow} kWh/mes `}</span> </h3>
 
                 <h3><span className='span-1'>Consuption oversize: </span> <br /> <span className="span-2">{` ${consumptionOverDimensionShow} kWh/día `}</span> </h3>
-            </div>
+    </div>*/}
 
 
             <h3 className='Equipment-selection'>Selección de equipos</h3>
-
-
             <CardOfBudget
                 consumptionOverDimension={consumptionOverDimension}
                 arrayOfCurrent={arrayOfCurrent}
@@ -282,8 +375,7 @@ const ManuallyData = () => {
                 stateTestBudget={stateTestBudget}
             />
 
-
-        </article>
+        </article >
 
     )
 }

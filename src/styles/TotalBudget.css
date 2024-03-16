@@ -28,6 +28,9 @@
     border: 2px solid var(--ship-cove-950);
     gap: 5px;
 }
+.Total-budget-car.on{
+    display: none;
+}
 
 @media only screen and (min-width: 220px) and (max-width: 249px) {
     .Total-budget-car {

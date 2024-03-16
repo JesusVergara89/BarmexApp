@@ -48,7 +48,6 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     const inverters = useInverter()
 
     const [conditionsForPanels, setConditionsForPanels] = useState()
-    const [conditionForBatteries, setConditionForBatteries] = useState()
     const [conditionBattery1, setConditionBattery1] = useState()
     const [conditionInverter, setConditionInverter] = useState()
     const [budgetChange, setBudgetChange] = useState(false)
@@ -147,15 +146,6 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
 
     const oneSunConstant = 1000
     const EHS = (propIrradiation[0].min) / (oneSunConstant)
-    //B-type: Battery type.
-    const N = autonomy_Days //Number of days of autonomy
-    const kb = 0.05 //accumulator losses
-    const kc = 0.05 //converter losses
-    const kv = 0.15 //several losses
-    const ka = 0.005 //auto-discharge coefficient
-    const Pd = 0.5 //battery discharge depth
-    const R = ((1 - kb - kc - kv) * (1 - ((ka * N) / Pd))).toFixed(2)
-    const E = ((largerConsuption / 30) / R).toFixed(2)
     let Valueofpanel = []
     let Valueofbateria = []
     let Valueofregulador = []
@@ -220,9 +210,8 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     console.log(Valueofregulador)
     //Operacion de bateria
     batteries.map((bateria, index) => {
-        let PowerBateria = bateria.voltage * bateria.type
-        let powerOfTheSystem = consumptionOverDimension * 2
-        let Quantity = Math.ceil(powerOfTheSystem / PowerBateria)
+        let powerOfTheSystem = Math.ceil((consumptionOverDimension * autonomy_Days) / (TensionSystem * 0.5))
+        let Quantity = Math.ceil(powerOfTheSystem / bateria.type)
         const { Value, N, } = CalculoCircuito(bateria.voltage, bateria.type, Quantity)
         let costOfBatteries = N * bateria.cost
         Valueofbateria.push({
@@ -307,179 +296,172 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
                 </div>
             </div>
 
-            {budgetChange ?
-                <TotalBudget
-                    sumOfValuesP={sumOfValuesP}
-                    sumOfValuesBattery={sumOfValuesBattery}
-                    sumOfValuesRegulator={sumOfValuesRegulator}
-                    sumOfValuesinversor={sumOfValuesinversor}
-                    TensionSystem={TensionSystem}
+            <TotalBudget
+                sumOfValuesP={sumOfValuesP}
+                sumOfValuesBattery={sumOfValuesBattery}
+                sumOfValuesRegulator={sumOfValuesRegulator}
+                sumOfValuesinversor={sumOfValuesinversor}
+                TensionSystem={TensionSystem}
+                budgetChange={budgetChange}
+            />
+
+            <div className={!budgetChange ? 'budget' : 'budget on'}>
+
+                <h3 className='Select-main'>Selección panel</h3>
+
+                <Select className='select-panel-select'
+                    options={MainConditions}
+                    onChange={handleSelectionChange}
                 />
 
-                :
+                <div className='budget-panel-quantity'>
 
-                <div className='budget'>
+                    <div className='budget-panel-quantity-row-reduce'>
 
-                    <h3 className='Select-main'>Selección panel</h3>
-
-                    <Select className='select-panel-select'
-                        options={MainConditions}
-                        onChange={handleSelectionChange}
-                        defaultValue={MainConditions[0]}
-                    />
-
-                    <div className='budget-panel-quantity'>
-
-                        <div className='budget-panel-quantity-row-reduce'>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Costo</h3>
-                            </div>
-
-                        </div>
-
-                        <div className='budget-panel-quantity-row-1-reduce'>
-                            <div className='budget-panel-quantity-1-1'>
-                                {/* Un comentario JSX */}
-                                <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesP ? sumOfValuesP.PriceTotal : 0)}`}</h3>
-                            </div>
-
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Costo</h3>
                         </div>
 
                     </div>
 
-                    <h3 className='Select-main'>Voltage de batería</h3>
-                    <div className='budget-panel-quantity'>
-                        <div className='budget-panel-quantity-row'>
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Voltaje</h3>
-                            </div>
-
-                        </div>
-                        <div className='budget-panel-quantity-row-1'>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>12 v</h3>
-                            </div>
-
+                    <div className='budget-panel-quantity-row-1-reduce'>
+                        <div className='budget-panel-quantity-1-1'>
+                            {/* Un comentario JSX */}
+                            <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesP ? sumOfValuesP.PriceTotal : 0)}`}</h3>
                         </div>
 
                     </div>
-
-                    <h3 className='Select-main'>Selección batería</h3>
-
-                    <Select className='select-panel-select'
-                        options={MainConditionsBattery}
-                        onChange={handleSelectionChangeBattery}
-                        defaultValue={MainConditionsBattery[0]}
-                    />
-
-                    <div className='budget-panel-quantity'>
-
-                        <div className='budget-panel-quantity-row-reduce'>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Costo</h3>
-                            </div>
-
-                        </div>
-
-                        <div className='budget-panel-quantity-row-1-reduce'>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesBattery ? sumOfValuesBattery.PriceTotal : 0)}`}</h3>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <h3 className='Select-main'>El regulador asociado es</h3>
-
-                    <div className='budget-panel-quantity'>
-
-                        <div className='budget-panel-quantity-row'>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Cantida principal</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Costo</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Cantidad adicional</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Costo</h3>
-                            </div>
-
-                        </div>
-
-                        <div className='budget-panel-quantity-row-1'>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`${sumOfValuesRegulator ? sumOfValuesRegulator.Cant_Regulators : 0} Uds`}</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesRegulator ? sumOfValuesRegulator.PriceRegulador : 0)}`}</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`${sumOfValuesRegulator ? sumOfValuesRegulator.Cant_RegulatorsAd : 0} Uds`}</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesRegulator ? sumOfValuesRegulator.PriceReguladorAd : 0)}`}</h3>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <h3 className='Select-main'>Selección inversor</h3>
-
-                    <Select className='select-panel-select'
-                        options={invertersArray}
-                        onChange={handleSelectionInverter}
-                        defaultValue={invertersArray[0]}
-                    />
-
-                    <div className='budget-panel-quantity'>
-
-                        <div className='budget-panel-quantity-row'>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Cantidad</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1'>
-                                <h3>Costo</h3>
-                            </div>
-
-                        </div>
-
-                        <div className='budget-panel-quantity-row-1'>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`${sumOfValuesinversor ? sumOfValuesinversor.Cant : 0} Uds`}</h3>
-                            </div>
-
-                            <div className='budget-panel-quantity-1-1'>
-                                <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesinversor ? sumOfValuesinversor.PriceTotal : 0)}`}</h3>
-                            </div>
-
-                        </div>
-
-                    </div>
-
 
                 </div>
 
-            }
+                <h3 className='Select-main'>Voltage de batería</h3>
+                <div className='budget-panel-quantity'>
+                    <div className='budget-panel-quantity-row'>
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Voltaje</h3>
+                        </div>
+
+                    </div>
+                    <div className='budget-panel-quantity-row-1'>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>12 v</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <h3 className='Select-main'>Selección batería</h3>
+
+                <Select className='select-panel-select'
+                    options={MainConditionsBattery}
+                    onChange={handleSelectionChangeBattery}
+                />
+
+                <div className='budget-panel-quantity'>
+
+                    <div className='budget-panel-quantity-row-reduce'>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Costo</h3>
+                        </div>
+
+                    </div>
+
+                    <div className='budget-panel-quantity-row-1-reduce'>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesBattery ? sumOfValuesBattery.PriceTotal : 0)}`}</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <h3 className='Select-main'>El regulador asociado es</h3>
+
+                <div className='budget-panel-quantity'>
+
+                    <div className='budget-panel-quantity-row'>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Cantida principal</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Costo</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Cantidad adicional</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Costo</h3>
+                        </div>
+
+                    </div>
+
+                    <div className='budget-panel-quantity-row-1'>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`${sumOfValuesRegulator ? sumOfValuesRegulator.Cant_Regulators : 0} Uds`}</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesRegulator ? sumOfValuesRegulator.PriceRegulador : 0)}`}</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`${sumOfValuesRegulator ? sumOfValuesRegulator.Cant_RegulatorsAd : 0} Uds`}</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesRegulator ? sumOfValuesRegulator.PriceReguladorAd : 0)}`}</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <h3 className='Select-main'>Selección inversor</h3>
+
+                <Select className='select-panel-select'
+                    options={invertersArray}
+                    onChange={handleSelectionInverter}
+                />
+
+                <div className='budget-panel-quantity'>
+
+                    <div className='budget-panel-quantity-row'>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Cantidad</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Costo</h3>
+                        </div>
+
+                    </div>
+
+                    <div className='budget-panel-quantity-row-1'>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`${sumOfValuesinversor ? sumOfValuesinversor.Cant : 0} Uds`}</h3>
+                        </div>
+
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesinversor ? sumOfValuesinversor.PriceTotal : 0)}`}</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
 
             <button onClick={functionShowBudget}>{budgetChange ? 'Regresar' : 'Ver presupuesto'}</button>
 
