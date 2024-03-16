@@ -5,6 +5,7 @@ import Select from 'react-select';
 import CardOfCalculus from './CardOfCalculus';
 import '../styles/ManuallyData.css'
 import CardOfBudget from './CardOfBudget';
+import { Autonomia, Consumo } from './Validacion';
 
 const ManuallyData = () => {
     const arrayOfDeparments = [
@@ -132,11 +133,10 @@ const ManuallyData = () => {
         consumption7: ""
     }
 
-    const { register, handleSubmit, reset, formState: { errors }
+    const { register, handleSubmit, reset, formState: { errors, isSubmitted }, watch
     } = useForm()
     const [dataOrigin, setDataOrigin] = useState(defaultData)
     const [isShow, setIsShow] = useState(false)
-
 
     const submit = (data) => {
         setDataOrigin(data)
@@ -222,15 +222,16 @@ const ManuallyData = () => {
 
                 <form className='input_form' onSubmit={handleSubmit(submit)} >
                     <div className='tittle-autonomy'>Dias de autonomía</div>
-                    <div className={(errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern') ? 'error on' : 'error'}>
+                    <div className={(errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern' || errors.autonomy?.type === 'validate') ? 'error on' : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Autonomía' {...register('autonomy', { required: true, pattern: /^\d+(\.\d+)?$/ })}
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Autonomía' {...register('autonomy', { required: true, pattern: /^\d+(\.\d+)?$/, validate: Autonomia })}
                             />
-                            {errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern' ?
+                            {errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern' || errors.autonomy?.type === 'validate' ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.autonomy ?
+                                : isSubmitted ?
                                     <i className='bx bxs-check-circle'></i>
-                                    : ''}
+                                    : ''
+                            }
                         </div>
                         {errors.autonomy?.type === 'required' &&
                             <p>Este campo es obligatorio. Por favor, asegúrate de completarlo.</p>
@@ -239,14 +240,19 @@ const ManuallyData = () => {
                         {errors.autonomy?.type === 'pattern'
                             && <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
                         }
+                        {errors.autonomy?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 5. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className='tittle-autonomy' ><h3>Consumo</h3></div>
                     <div className={(errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern') ? 'error on' : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1', { required: true, pattern: /^\d+(\.\d+)?$/ })} />
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1', { required: true, pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
                             {/*Mensaje de error y icono */}
-                            {errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern' ? <i className='bx bxs-x-circle'></i>
-                                : errors.consumption1 ?
+                            {errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern' || errors.consumption1?.type === 'validate' ? <i className='bx bxs-x-circle'></i>
+                                : isSubmitted ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
@@ -256,83 +262,118 @@ const ManuallyData = () => {
                         {errors.consumption1?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
                         }
+                        {errors.consumption1?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className={errors.consumption2?.type === 'pattern' ? "error on" : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2', { pattern: /^\d+(\.\d+)?$/ })} />
-                            {(errors.consumption2?.type === 'pattern') ?
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption2?.type === 'pattern' || errors.consumption2?.type === 'validate') ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.consumption2 ?
+                                : isSubmitted && watch('consumption2') ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
                         {errors.consumption2?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
                         }
+                        {errors.consumption2?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className={errors.consumption3?.type ? 'error on' : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3', { pattern: /^\d+(\.\d+)?$/ })} />
-                            {(errors.consumption3?.type === 'pattern') ?
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption3?.type === 'pattern' || errors.consumption3?.type === 'validate') ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.consumption3 ?
+                                : isSubmitted && watch('consumption3') ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
                         {errors.consumption3?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
                         }
+                        {errors.consumption3?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className={errors.consumption4?.type ? 'error on' : 'error'}>
                         <div>
                             <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4', { pattern: /^\d+(\.\d+)?$/ })} />
-                            {(errors.consumption4?.type === 'pattern') ?
+                            {(errors.consumption4?.type === 'pattern' || errors.consumption4?.type === 'validate') ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.consumption4 ?
+                                : isSubmitted && watch('consumption4') ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
                         {errors.consumption4?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
                         }
+                        {errors.consumption4?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className={errors.consumption5?.type ? 'error on' : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5', { pattern: /^\d+(\.\d+)?$/ })} />
-                            {(errors.consumption5?.type === 'pattern') ?
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption5?.type === 'pattern' || errors.consumption5?.type === 'validate') ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.consumption5 ?
+                                : isSubmitted && watch('consumption5') ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
                         {errors.consumption5?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
                         }
+                        {errors.consumption5?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className={errors.consumption6?.type ? 'error on' : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6', { pattern: /^\d+(\.\d+)?$/ })} />
-                            {(errors.consumption6?.type === 'pattern') ?
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption6?.type === 'pattern' || errors.consumption6?.type === 'validate') ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.consumption6 ?
+                                : isSubmitted && watch('consumption6') ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
                         {errors.consumption6?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
                         }
+                        {errors.consumption6?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
                     </div>
                     <div className={errors.consumption7?.type ? 'error on' : 'error'}>
                         <div>
-                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7', { pattern: /^\d+(\.\d+)?$/ })} />
-                            {(errors.consumption7?.type === 'pattern') ?
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption7?.type === 'pattern' || errors.consumption7?.type === 'validate') ?
                                 <i className='bx bxs-x-circle'></i>
-                                : errors.consumption7 ?
+                                : isSubmitted && watch('consumption7') ?
                                     <i className='bx bxs-check-circle'></i>
                                     : ''}
                         </div>
                         {errors.consumption7?.type === 'pattern' &&
                             <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                        {errors.consumption7?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
                         }
                     </div>
 

@@ -50,32 +50,32 @@ const TotalBudget = ({ sumOfValuesP, sumOfValuesBattery, sumOfValuesRegulator, s
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Paneles</div>
-                    <div className='equipment-characteristic-1'>{sumOfValuesP ? sumOfValuesP.Ref_Potencia : 0}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesP ? `${sumOfValuesP.Ref_Potencia} W` : '0 W'}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Baterias</div>
-                    <div className='equipment-characteristic-1'>{sumOfValuesBattery ? sumOfValuesBattery.Ref_Corriente : 0}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesBattery ? `${sumOfValuesBattery.Ref_Corriente} Ah` : '0 Ah'}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Inversores</div>
-                    <div className='equipment-characteristic-1'>{sumOfValuesinversor ? sumOfValuesinversor.Ref_Power : 0}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesinversor ? `${sumOfValuesinversor.Ref_Power} W` : '0 W'}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Regulador principal</div>
-                    <div className='equipment-characteristic-1'>{sumOfValuesRegulator ? sumOfValuesRegulator.Ref_Corriente : 0}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesRegulator ? `${sumOfValuesRegulator.Ref_Corriente} A` : '0 A'}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-1'>Regulador adicional</div>
-                    <div className='equipment-characteristic-1'>{sumOfValuesRegulator ? sumOfValuesRegulator.Ref_CorrienteAd : 0}</div>
+                    <div className='equipment-characteristic-1'>{sumOfValuesRegulator ? `${sumOfValuesRegulator.Ref_CorrienteAd} A` : '0 A'}</div>
                 </div>
 
                 <div className='technical-specifications'>
                     <div className='equipment-description-2'>Tension del Sistema</div>
-                    <div className='equipment-characteristic-2'>{TensionSystem ? TensionSystem : 0}</div>
+                    <div className='equipment-characteristic-2'>{TensionSystem ? `${TensionSystem} V` : '0 V'}</div>
                 </div>
 
             </div>

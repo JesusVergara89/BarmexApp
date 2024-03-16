@@ -80,6 +80,7 @@
   padding: 5px;
 }
 
+
 .error {
   width: 195px;
   display: flex;
@@ -89,7 +90,6 @@
 }
 .error div {
   position: relative;
-  z-index: 60;
 }
 .error .bx {
   position: absolute;

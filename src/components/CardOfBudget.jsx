@@ -124,6 +124,62 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
         let I = 0
         let V
         let W
+        let IAd = 0
+        let VAd
+        let WAd
+        let NAd = 0
+        for (let index = 0; index < Fila_Paralelo; index++) {
+            if (W >= 6500) {
+                if (WAd > 7000) {
+                    NAd = NAd + Colum_Paralelo
+                    VAd = Voltaje * Colum_Paralelo
+                    IAd = Corriente + IAd
+                    WAd = Math.round(VAd * IAd)
+                } else {
+                    WAd = 7100
+                }
+            } else {
+                V = Voltaje * Colum_Paralelo
+                I = Corriente + I
+                W = Math.round(V * I)
+            }
+        }
+        let NP = N - NAd
+
+        let ValueP = { V: V, I: I, W: W }
+        let ValueS = { V: VAd, I: IAd, W: WAd }
+        return { ValueP, NP, ValueS, NAd, N }
+    }
+    const CalculoCircuitoB = (Voltaje, Corriente, Quantity) => {
+        let Subtension = TensionSystem - Voltaje
+        let Fila_Paralelo
+        let Colum_Paralelo
+        let N
+        if (TensionSystem === Voltaje) {
+            N = Quantity
+            Fila_Paralelo = N
+            Colum_Paralelo = 1;
+        } else if (Subtension === Voltaje) {
+            if (Quantity % 2 === 0) {
+                N = Quantity
+            } else {
+                N = Quantity + 1
+            }
+            Fila_Paralelo = Math.ceil(N / 2)
+            Colum_Paralelo = 2;
+        } else if (Subtension > Voltaje) {
+            if (Quantity % 4 === 0) {
+                N = Quantity
+            } else {
+                let subtraccion = 4 - (Quantity % 4)
+                N = Quantity + subtraccion
+            }
+            Fila_Paralelo = Math.ceil(N / 4)
+            Colum_Paralelo = 4;
+        }
+        let I = 0
+        let V
+        let W
         for (let index = 0; index < Fila_Paralelo; index++) {
             V = Voltaje * Colum_Paralelo
             I = Corriente + I
@@ -172,22 +228,25 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     let TensionSystem = analiticTension()
     let PanelTension = panels.filter(data => data.Voltaje <= TensionSystem)
     //Operacion paneles
-    PanelTension.map((panel, index) => {
-        let inversor = []
+    PanelTension.map(panel => {
         let powerOfPanels = panel.Power
-        let NP = Math.ceil(consumptionOverDimension / (0.9 * powerOfPanels * EHS))
-        const { Value, N, } = CalculoCircuito(panel.Voltaje, panel.Isc, NP)
+        let NPa = Math.ceil(consumptionOverDimension / (0.9 * powerOfPanels * EHS))
+        const { ValueP, NP, ValueS, NAd, N } = CalculoCircuito(panel.Voltaje, panel.Isc, NPa)
         let priceOfPanels = panel.Price
         let budgetOfPanels = priceOfPanels * N
-        Valueofpanel.push({ Cant: N, PriceTotal: budgetOfPanels, Ref_Potencia: MainConditions[index].label, CircuitoPanel: Value }
+        Valueofpanel.push({ Cant: N, PriceTotal: budgetOfPanels, Ref_Potencia: powerOfPanels, CircuitoPanelP: ValueP, CircuitoPanelS: ValueS, CantAd: NAd, CantP: NP }
         )
         //Operacion de regulador
         let Quantity
         let QuantityAd
-        let IntensityOfTheSystem = Math.ceil(Value.W / TensionSystem)
-        let analiticFunctionForRegulators = analiticSubstractionFunction(IntensityOfTheSystem)
-        let analiticAdditionalRegulators = substractionFunctionForAdditionalRegulator(IntensityOfTheSystem)
-        if (analiticFunctionForRegulators > 0) {
+        let IntensityOfTheSystemP = Math.ceil(ValueP.W / TensionSystem)
+        let IntensityOfTheSystemS = Math.ceil(ValueS.W / TensionSystem)
+        if (isNaN(IntensityOfTheSystemS)) {
+            IntensityOfTheSystemS = 0
+        }
+        let analiticFunctionForRegulators = analiticSubstractionFunction(IntensityOfTheSystemP)
+        let analiticAdditionalRegulators = analiticSubstractionFunction(IntensityOfTheSystemS)
+        if (IntensityOfTheSystemP > 0) {
             Quantity = 1
         } else {
             Quantity = 0
@@ -202,32 +261,33 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
             analiticAdditionalRegulators: analiticAdditionalRegulators,
             Cant_Regulators: Quantity,
             Cant_RegulatorsAd: QuantityAd,
-            IntensityOfTheSystem: IntensityOfTheSystem,
-            WP: Value.W,
+            IntensityOfTheSystemP: IntensityOfTheSystemP,
+            IntensityOfTheSystemS: IntensityOfTheSystemS,
+            WP: ValueP.W,
+            WS: ValueS.W,
             Panel: powerOfPanels
         })
     })
-    console.log(Valueofregulador)
     //Operacion de bateria
-    batteries.map((bateria, index) => {
+    batteries.map(bateria => {
         let powerOfTheSystem = Math.ceil((consumptionOverDimension * autonomy_Days) / (TensionSystem * 0.5))
         let Quantity = Math.ceil(powerOfTheSystem / bateria.type)
-        const { Value, N, } = CalculoCircuito(bateria.voltage, bateria.type, Quantity)
+        const { Value, N, } = CalculoCircuitoB(bateria.voltage, bateria.type, Quantity)
         let costOfBatteries = N * bateria.cost
         Valueofbateria.push({
             Cant: Quantity,
             PriceTotal: costOfBatteries,
-            Ref_Corriente: MainConditionsBattery[index].label,
+            Ref_Corriente: bateria.type,
             CircuitoBateria: Value
         })
     })
     //Operacion Inversor
-    inverters.map((data, index) => {
+    inverters.map(data => {
         let power = data.Power
         let quantit = Math.ceil((consumptionOverDimension * 0.76) / power)
         let priceOfInversor = data.price
         let budgetOfInversor = quantit * priceOfInversor
-        Valueofinversor.push({ Cant: quantit, Ref_Power: invertersArray[index].label, PriceTotal: budgetOfInversor, Power: power })
+        Valueofinversor.push({ Cant: quantit, Ref_Power: power, PriceTotal: budgetOfInversor, Power: power })
     })
     const pricePanel = () => {
         let ValueP = Valueofpanel.find((data, index) => conditionsForPanels === MainConditions[index].value)
@@ -243,15 +303,18 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
             if (conditionsForPanels === data.Panel) {
                 let PriceRegulador = regulatorsMPPTWithOutRepeat.find(user => (data.analiticFunctionForRegulators === user.Cc || data.analiticFunctionForRegulators * 1.2 >= user.Cc) && [{ voltage: user.system_voltage_1, spp: user.Spp12 }, { voltage: user.system_voltage_2, spp: user.Spp24 }, { voltage: user.system_voltage_4, spp: user.Spp48 }]
                     .some(regu => TensionSystem === regu.voltage && data.WP <= regu.spp))
-                let PriceReguladorAd = regulatorsMPPTWithOutRepeat.find(user => user.analiticAdditionalRegulators <= user.Cc && [{ voltage: user.system_voltage_1, spp: user.Spp12 }, { voltage: user.system_voltage_2, spp: user.Spp24 }, { voltage: user.system_voltage_4, spp: user.Spp48 }]
-                    .some(regu => TensionSystem === regu.voltage && data.WP <= regu.spp))
+
+                let PriceReguladorAd = regulatorsMPPTWithOutRepeat.find(user => (data.analiticAdditionalRegulators === user.Cc || data.analiticAdditionalRegulators * 1.2 >= user.Cc) && [{ voltage: user.system_voltage_1, spp: user.Spp12 }, { voltage: user.system_voltage_2, spp: user.Spp24 }, { voltage: user.system_voltage_4, spp: user.Spp48 }]
+                    .some(regu => TensionSystem === regu.voltage && data.WS <= regu.spp))
                 ValuesR = {
                     Ref_Corriente: data.analiticFunctionForRegulators,
                     Ref_CorrienteAd: data.analiticAdditionalRegulators,
                     Cant_Regulators: data.Cant_Regulators,
                     Cant_RegulatorsAd: data.Cant_RegulatorsAd,
                     PriceReguladorAd: PriceReguladorAd ? PriceReguladorAd.price : 0,
-                    PriceRegulador: PriceRegulador ? PriceRegulador.price : 0
+                    PriceRegulador: PriceRegulador ? PriceRegulador.price : 0,
+                    panel: data.Panel,
+                    data: data.WS
                 }
             }
         })
@@ -279,7 +342,6 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     let sumOfValuesRegulator = priceRegulator()
     let sumOfValuesinversor = priceinversor()
     const functionShowBudget = () => setBudgetChange(!budgetChange)
-
     const previous_Function = () => setBudgetChange(false)
     const next_Function = () => setBudgetChange(true)
 
@@ -317,14 +379,18 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
                 <div className='budget-panel-quantity'>
 
                     <div className='budget-panel-quantity-row-reduce'>
-
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Cantidad:</h3>
+                        </div>
                         <div className='budget-panel-quantity-1'>
                             <h3>Costo</h3>
                         </div>
-
                     </div>
 
                     <div className='budget-panel-quantity-row-1-reduce'>
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`${sumOfValuesP ? sumOfValuesP.Cant : 0} Uds`}</h3>
+                        </div>
                         <div className='budget-panel-quantity-1-1'>
                             {/* Un comentario JSX */}
                             <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesP ? sumOfValuesP.PriceTotal : 0)}`}</h3>
@@ -334,12 +400,23 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
 
                 </div>
 
-                <h3 className='Select-main'>Voltage de batería</h3>
+                <h3 className='Select-main'>Selección batería</h3>
+                <Select className='select-panel-select'
+                    options={MainConditionsBattery}
+                    onChange={handleSelectionChangeBattery}
+                />
                 <div className='budget-panel-quantity'>
                     <div className='budget-panel-quantity-row'>
                         <div className='budget-panel-quantity-1'>
                             <h3>Voltaje</h3>
                         </div>
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Cantidad:</h3>
+                        </div>
+                        <div className='budget-panel-quantity-1'>
+                            <h3>Costo</h3>
+                        </div>
+
 
                     </div>
                     <div className='budget-panel-quantity-row-1'>
@@ -347,38 +424,16 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
                         <div className='budget-panel-quantity-1-1'>
                             <h3>12 v</h3>
                         </div>
-
-                    </div>
-
-                </div>
-
-                <h3 className='Select-main'>Selección batería</h3>
-
-                <Select className='select-panel-select'
-                    options={MainConditionsBattery}
-                    onChange={handleSelectionChangeBattery}
-                />
-
-                <div className='budget-panel-quantity'>
-
-                    <div className='budget-panel-quantity-row-reduce'>
-
-                        <div className='budget-panel-quantity-1'>
-                            <h3>Costo</h3>
+                        <div className='budget-panel-quantity-1-1'>
+                            <h3>{`${sumOfValuesBattery ? sumOfValuesBattery.Cant : 0} Uds`}</h3>
                         </div>
-
-                    </div>
-
-                    <div className='budget-panel-quantity-row-1-reduce'>
-
                         <div className='budget-panel-quantity-1-1'>
                             <h3>{`$ ${new Intl.NumberFormat().format(sumOfValuesBattery ? sumOfValuesBattery.PriceTotal : 0)}`}</h3>
                         </div>
-
                     </div>
 
                 </div>
-
+                
                 <h3 className='Select-main'>El regulador asociado es</h3>
 
                 <div className='budget-panel-quantity'>

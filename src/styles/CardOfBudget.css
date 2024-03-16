@@ -101,7 +101,7 @@
   border-radius: 6px;
   background-color: var(--primary-color);
   border: 2px solid var(--secondary-color);
-  gap: 5px;
+  gap: 10px;
 }
 .budget.on {
   display: none;
