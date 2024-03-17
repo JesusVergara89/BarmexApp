@@ -24,7 +24,7 @@ const Instructions = () => {
                     <li>Ingresar días de autonomía:
 
                         <h4>
-                            Elegir el número adecuado de días de autonomía es esencial para garantizar que un sistema de energía solar pueda funcionar de manera confiable y continua incluso en condiciones climáticas desfavorables. Esta medida proporciona un respaldo crucial durante períodos de baja radiación solar, previene descargas profundas de las baterías y brinda flexibilidad operativa en situaciones críticas. Si pones 0 o nada, el sistama calcula un sistema <a href="https://novumsolar.com/sistema-solar-conectado-a-red/">conectado a la red</a>
+                            Elegir el número adecuado de días de autonomía es esencial para garantizar que un sistema de energía solar pueda funcionar de manera confiable y continua incluso en condiciones climáticas desfavorables. Esta medida proporciona un respaldo crucial durante períodos de baja radiación solar, previene descargas profundas de las baterías y brinda flexibilidad operativa en situaciones críticas. Si pones 0 o nada, el sistama calcula un sistema <a href="https://novumsolar.com/sistema-solar-conectado-a-red/" target='_blank'>conectado a la red</a>
                         </h4>
 
                     </li>

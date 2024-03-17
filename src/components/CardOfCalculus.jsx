@@ -2,7 +2,7 @@ import '../styles/CardOfCalculus.css'
 
 const CardOfCalculus = ({ consumptionOverDimension,
     arrayOfCurrent, largerConsuption, location,
-    autonomy_Days, longitudeOfPLace, latitudeOfPLace, propIrradiation }) => {
+    autonomy_Days, longitudeOfPLace, latitudeOfPLace, propIrradiation, isShow, totalShow, consumptionOverDimensionShow, largerConsuptionShow }) => {
 
     let PF = 'PF-South'
 
@@ -83,11 +83,11 @@ const CardOfCalculus = ({ consumptionOverDimension,
     }
 
     angleOfPanels = analysisOfData(latitudeOfPLace)
-/*
-    let anglesTestX=analysisOfData(5.38)
-
-    console.log(anglesTestX)
-*/
+    /*
+        let anglesTestX=analysisOfData(5.38)
+    
+        console.log(anglesTestX)
+    */
 
     const directionOfPanelFace = (data) => {
         if (data > 0) {
@@ -106,7 +106,7 @@ const CardOfCalculus = ({ consumptionOverDimension,
 
 
     return (
-        <article className='article-calculus'>
+        <article className={isShow ? 'article-calculus' : 'article-calculus on'}>
 
             <div className='Technical-information' >
 
@@ -117,15 +117,26 @@ const CardOfCalculus = ({ consumptionOverDimension,
 
                     <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>AVIP:</h3></div>
                     <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${propIrradiation[0].max} Wh/día`}</h3></div>
+                    {
+                        location ?
+                            <>
+                                <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>AVIPL:</h3></div>
+                                <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${Gdm_a_b} Wh/día`}</h3> </div>
+                            </>
+                            : ''}
 
-                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>AVIPL:</h3></div>
-                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${Gdm_a_b} Wh/día`}</h3> </div>
 
                     <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>PRFM:</h3></div>
                     <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${R}`}</h3> </div>
 
-                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>LCAB:</h3></div>
-                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${consumptionOverDimension} Wh/día`}</h3> </div>
+                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>Larger Consuption:</h3></div>
+                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3 here'>{`${largerConsuptionShow ? largerConsuptionShow : 0}  kWh/mes`}</h3> </div>
+
+                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>Average Consuption:</h3></div>
+                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3 here'>{`${totalShow ? totalShow : 0} kWh/mes`}</h3> </div>
+
+                    <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>Consuption oversize:</h3></div>
+                    <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3 here'>{` ${consumptionOverDimensionShow ? consumptionOverDimensionShow : 0} kWh/día `}</h3> </div>
 
                     <div className='Technical-information-grid-1'> <h3 className='Technical-information-grid-1-h3'>BB12V:</h3></div>
                     <div className='Technical-information-grid-2'> <h3 className='Technical-information-grid-1-h3'>{`${C12} Ah/día`}</h3> </div>
@@ -139,22 +150,23 @@ const CardOfCalculus = ({ consumptionOverDimension,
                 </div>
 
             </div>
+            {location ?
+                <div className='Technical-information-grid'>
 
-            <div className='Technical-information-grid'>
+                    <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Inclinación: </h3></div>
+                    <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'> &#8776; {angleOfPanels} &#10664;</h3> </div>
 
-                <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Inclinación: </h3></div>
-                <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'> &#8776; {angleOfPanels} &#10664;</h3> </div>
+                    <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Orientación: </h3></div>
+                    <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'>{PF_1}</h3> </div>
 
-                <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Orientación: </h3></div>
-                <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'>{PF_1}</h3> </div>
+                    <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Latitud: </h3></div>
+                    <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'> &#8776; {latitudeOfPLace} °</h3> </div>
 
-                <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Latitud: </h3></div>
-                <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'> &#8776; {latitudeOfPLace} °</h3> </div>
+                    <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Longitud: </h3></div>
+                    <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'> &#8776; {longitudeOfPLace} °</h3> </div>
 
-                <div className='Technical-information-grid-geo'> <h3 className='Technical-information-grid-1-h3'>Longitud: </h3></div>
-                <div className='Technical-information-grid-geo-1'> <h3 className='Technical-information-grid-1-h3'> &#8776; {longitudeOfPLace} °</h3> </div>
-
-            </div>
+                </div>
+                : ''}
 
         </article>
     )

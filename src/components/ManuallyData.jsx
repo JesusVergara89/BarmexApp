@@ -5,6 +5,8 @@ import Select from 'react-select';
 import CardOfCalculus from './CardOfCalculus';
 import '../styles/ManuallyData.css'
 import CardOfBudget from './CardOfBudget';
+import { Autonomia, Consumo } from './Validacion';
+import { toast } from 'react-toastify';
 
 const ManuallyData = () => {
     const arrayOfDeparments = [
@@ -80,19 +82,24 @@ const ManuallyData = () => {
         propIrradiation = dataIrradiation
     }
 
-    //console.log(propIrradiation)
-
-    useEffect(() => {
+    //console.log(dataIrradiation)
+    const Geolocation = () => {
         const success = (pos) => {
             let lat = pos.coords.latitude
             let lon = pos.coords.longitude
             setLocation(lat)
             setLocation1(lon)
-
         }
         navigator.geolocation.getCurrentPosition(success)
+    }
+    useEffect(() => {
+        Geolocation()
     }, [])
-
+    const error = () => {
+        if (!location) {
+            toast('Permiso denegado. Por favor, otorgue permiso para acceder a su ubicación.', { type: 'error' })
+        }
+    }
     let latitudeOfPLace
     let longitudeOfPLace
 
@@ -111,14 +118,14 @@ const ManuallyData = () => {
     //from here
 
     const defaultData = {
-        autonomy: "1",
-        consumption1: "0.00001",
-        consumption2: "0.00001",
-        consumption3: "0.00001",
-        consumption4: "0.00001",
-        consumption5: "0.00001",
-        consumption6: "0.00001",
-        consumption7: "0.00001"
+        autonomy: "0",
+        consumption1: "0",
+        consumption2: "0",
+        consumption3: "0",
+        consumption4: "0",
+        consumption5: "0",
+        consumption6: "0",
+        consumption7: "0"
     }
 
     const defaultReset = {
@@ -132,15 +139,17 @@ const ManuallyData = () => {
         consumption7: ""
     }
 
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, formState: { errors, isSubmitted }, watch
+    } = useForm()
     const [dataOrigin, setDataOrigin] = useState(defaultData)
     const [isShow, setIsShow] = useState(false)
-
+    const [CheckFormu, setCheckFormu] = useState(false)
 
     const submit = (data) => {
         setDataOrigin(data)
-        reset(defaultReset)
+        //reset(defaultReset)
         setIsShow(!isShow)
+        setCheckFormu(true)
     }
 
     const analytic = (num) => {
@@ -180,10 +189,6 @@ const ManuallyData = () => {
 
     const largerConsuption = Math.max.apply(null, dataConsuption)// Obtain the max of the input data from the use form
 
-    if (largerConsuption > 5000000) {
-        window.location.reload(true);
-    }
-
     const kb = 0.05 //accumulator losses
     const kc = 0.05 //converter losses
     const kv = 0.15 //several losses
@@ -197,81 +202,231 @@ const ManuallyData = () => {
     //const totalLoadCurrent12 = Math.round((consumptionOverDimension / arrayOfCurrent[0]))
 
     //const totalLoadCurrent24 = Math.round((consumptionOverDimension / arrayOfCurrent[1]))
+    const Dato_no_nul = dataConsuption.filter(data => data > 0)
+    let suma = 0
+    for (let index = 0; index < Dato_no_nul.length; index++) {
+        suma = (Dato_no_nul[index] + suma);
+    }
+    const total = Math.round(suma / Dato_no_nul.length + 1)
+    const totalShow = Math.round(total / 1000)
+    const consumptionOverDimensionShow = Math.round(consumptionOverDimension / 1000)
+    const largerConsuptionShow = largerConsuption > 0 ? Math.round(largerConsuption / 1000) : 0
 
-    const total = Math.round(((data_1 + data_2 + data_3 + data_4 + data_5 + data_6 + data_7) / 7))
-    const totalShow = total / 1000
-    const consumptionOverDimensionShow = consumptionOverDimension / 1000
-    const largerConsuptionShow = largerConsuption / 1000
-
-    const submit1 = () => setIsShow(!isShow)
+    const submit1 = () => {
+        if (CheckFormu) {
+            setIsShow(!isShow)
+        } else {
+            toast('¡Error! Por favor, completa el formulario de cálculo antes de acceder a ver datos', { type: 'error' })
+        }
+    }
     return (
         <article className='Data_input'>
-
+            {!location ?
+                <button onClick={() => error()} className='Location'>
+                    <i className='bx bx-current-location'></i>
+                </button>
+                : ''
+            }
             <button className='button-app-1' onClick={submit1}>{isShow ? 'Regresar' : 'Ver datos'}</button>
 
-            {isShow ?
+            <div className={!isShow ? 'form-deparments-and-data' : 'form-deparments-and-data on'}>
 
-                ''
-                :
-                <div className='form-deparments-and-data'>
+                <h3 className='choose-place'>Elegir locación</h3>
 
-                   <h3 className='choose-place'>Elegir locación</h3>
+                <Select className='select-panel-select'
+                    options={arrayOfDeparments}
+                    onChange={handleSelectionIrradiation}
+                    defaultValue={'Select department'}
+                />
 
-                    <Select className='select-panel-select'
-                        options={arrayOfDeparments}
-                        onChange={handleSelectionIrradiation}
-                        defaultValue={'Select department'}
-                    />
+                <form className='input_form' onSubmit={handleSubmit(submit)} >
+                    <div className='tittle-autonomy'>Dias de autonomía</div>
+                    <div className={(errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern' || errors.autonomy?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Autonomía' {...register('autonomy', { required: true, pattern: /^\d+(\.\d+)?$/, validate: Autonomia })}
+                            />
+                            {errors.autonomy?.type === 'required' || errors.autonomy?.type === 'pattern' || errors.autonomy?.type === 'validate' ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''
+                            }
+                        </div>
+                        {errors.autonomy?.type === 'required' &&
+                            <p>Este campo es obligatorio. Por favor, asegúrate de completarlo.</p>
+                        }
 
-                    <form className='input_form' onSubmit={handleSubmit(submit)} >
-                        <div className='tittle-autonomy'>Dias de autonomía</div>
-                        <input className='Autonomy-days-form' type="text" autoComplete='off' placeholder='Autonomía' {...register('autonomy')} />
-                        <div className='tittle-autonomy' ><h3>Consumo</h3></div>
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6')} />
-                        <input className='Autonomy-input' type="text" autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7')} />
+                        {errors.autonomy?.type === 'pattern'
+                            && <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                        {errors.autonomy?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 5. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className='tittle-autonomy' ><h3>Consumo</h3></div>
+                    <div className={(errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern' || errors.consumption1?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 1 en kWh' {...register('consumption1', { required: true, pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {/*Mensaje de error y icono */}
+                            {errors.consumption1?.type === 'required' || errors.consumption1?.type === 'pattern' || errors.consumption1?.type === 'validate' ? <i className='bx bxs-x-circle'></i>
+                                : isSubmitted ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption1?.type === 'required' &&
+                            <p>Este campo es obligatorio. Por favor, asegúrate de completarlo.</p>
+                        }
+                        {errors.consumption1?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                        {errors.consumption1?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className={(errors.consumption2?.type === 'pattern' || errors.consumption2?.type === 'validate') ? "error on" : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 2 en kWh' {...register('consumption2', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption2?.type === 'pattern' || errors.consumption2?.type === 'validate') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted && watch('consumption2') ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption2?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                        {errors.consumption2?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className={(errors.consumption3?.type === 'pattern' || errors.consumption3?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 3 en kWh' {...register('consumption3', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption3?.type === 'pattern' || errors.consumption3?.type === 'validate') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted && watch('consumption3') ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption3?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                        {errors.consumption3?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className={(errors.consumption4?.type === 'pattern' || errors.consumption4?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 4 en kWh' {...register('consumption4', { pattern: /^\d+(\.\d+)?$/ })} />
+                            {(errors.consumption4?.type === 'pattern' || errors.consumption4?.type === 'validate') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted && watch('consumption4') ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption4?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                        {errors.consumption4?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className={(errors.consumption5?.type === 'pattern' || errors.consumption5?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 5 en kWh' {...register('consumption5', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption5?.type === 'pattern' || errors.consumption5?.type === 'validate') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted && watch('consumption5') ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption5?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor, digité un numero.</p>
+                        }
+                        {errors.consumption5?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className={(errors.consumption6?.type === 'pattern' || errors.consumption6?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 6 en kWh' {...register('consumption6', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption6?.type === 'pattern' || errors.consumption6?.type === 'validate') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted && watch('consumption6') ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption6?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                        {errors.consumption6?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
+                    <div className={(errors.consumption7?.type === 'pattern' || errors.consumption7?.type === 'validate') ? 'error on' : 'error'}>
+                        <div>
+                            <input className='Autonomy-input' type="Text" inputMode='numeric' autoComplete='off' placeholder='Consumo 7 en kWh' {...register('consumption7', { pattern: /^\d+(\.\d+)?$/, validate: Consumo })} />
+                            {(errors.consumption7?.type === 'pattern' || errors.consumption7?.type === 'validate') ?
+                                <i className='bx bxs-x-circle'></i>
+                                : isSubmitted && watch('consumption7') ?
+                                    <i className='bx bxs-check-circle'></i>
+                                    : ''}
+                        </div>
+                        {errors.consumption7?.type === 'pattern' &&
+                            <p>El formato de este campo es inválido. Por favor,digite un numero.</p>
+                        }
+                        {errors.consumption7?.type === 'validate' &&
+                            <p>
+                                El valor ingresado supera el límite máximo permitido por el sistema, el cual es de 1200 Kwh. Por favor, ajusta el valor para que esté dentro de este límite.
+                            </p>
+                        }
+                    </div>
 
-                        <button>Calcular</button>
+                    <button>Calcular</button>
 
-                    </form>
+                </form>
 
-                </div>
-            }
-
-            {
-                isShow ?
-                    <CardOfCalculus
-                        consumptionOverDimension={consumptionOverDimension}
-                        arrayOfCurrent={arrayOfCurrent}
-                        largerConsuption={largerConsuption}
-                        location={location}
-                        autonomy_Days={autonomy_Days}
-                        latitudeOfPLace={latitudeOfPLace}
-                        longitudeOfPLace={longitudeOfPLace}
-                        setIsShow={setIsShow}
-                        isShow={isShow}
-                        propIrradiation={propIrradiation}
-                    />
-                    :
-                    ''
-            }
-
+            </div >
+            <CardOfCalculus
+                consumptionOverDimension={consumptionOverDimension}
+                arrayOfCurrent={arrayOfCurrent}
+                largerConsuption={largerConsuption}
+                location={location}
+                autonomy_Days={autonomy_Days}
+                latitudeOfPLace={latitudeOfPLace}
+                longitudeOfPLace={longitudeOfPLace}
+                setIsShow={setIsShow}
+                isShow={isShow}
+                propIrradiation={propIrradiation}
+                totalShow={totalShow}
+                consumptionOverDimensionShow={consumptionOverDimensionShow}
+                largerConsuptionShow={largerConsuptionShow}
+            />
+            {/*
             <div className='grid-1'>
                 <h3><span className='span-1'>Average Consuption: </span> <br /> <span className="span-2">{` ${totalShow} kWh/mes`}</span>  </h3>
 
                 <h3><span className='span-1'>Larger consuption: </span> <br /> <span className="span-2">{`${largerConsuptionShow} kWh/mes `}</span> </h3>
 
                 <h3><span className='span-1'>Consuption oversize: </span> <br /> <span className="span-2">{` ${consumptionOverDimensionShow} kWh/día `}</span> </h3>
-            </div>
+    </div>*/}
 
 
             <h3 className='Equipment-selection'>Selección de equipos</h3>
-
-
             <CardOfBudget
                 consumptionOverDimension={consumptionOverDimension}
                 arrayOfCurrent={arrayOfCurrent}
@@ -282,8 +437,7 @@ const ManuallyData = () => {
                 stateTestBudget={stateTestBudget}
             />
 
-
-        </article>
+        </article >
 
     )
 }
