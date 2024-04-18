@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "esbuild": "^0.20.2",
     "firebase": "^10.11.0",
     "react": "^18.2.0",
@@ -20,6 +21,16 @@
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
     "tslib": "^2.6.2"
+=======
+    "firebase": "^10.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-hook-form": "^7.51.0",
+    "react-router-dom": "^6.22.3",
+    "react-select": "^5.8.0",
+    "react-toastify": "^10.0.4"
+>>>>>>> b3f85863db80794a3af0365fca8e1a9c83fb4405
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
@@ -28,6 +39,12 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+<<<<<<< HEAD
     "eslint-plugin-react-refresh": "^0.4.5"
+=======
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.4",
+    "vite-plugin-alias": "^0.1.1"
+>>>>>>> b3f85863db80794a3af0365fca8e1a9c83fb4405
   }
 }
