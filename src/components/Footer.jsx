@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="informacion-empresa">
         <h3>Información de contacto</h3>
         <p>Número de Teléfono: <a href="tel:+573245181802">+573245181802</a></p>
-        <p>Página Web: <a href="https://www.tuempresa.com">www.barmexenergy.com</a></p>
+        <p>Página Web: <a href="https://www.tuempresa.com">www.barmexenergy.com.co</a></p>
         <p>Bogota, Colombia</p>
       </div>
 
