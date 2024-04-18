@@ -8,6 +8,7 @@ function SolarApp() {
   const [logInLogOut, setLogInLogOut] = useState(true)
   return (
     <div className="SolarApp">
+      Hola soy jesus en mac
       <Header logInLogOut={logInLogOut} setLogInLogOut={setLogInLogOut} />
       <Routes>
         <Route path="/" element={<Home />} />
