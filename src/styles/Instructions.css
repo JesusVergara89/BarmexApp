@@ -1,0 +1,82 @@
+:root {
+    --ship-cove-50: #f2f7fb;
+    --ship-cove-100: #e7f1f8;
+    --ship-cove-200: #d3e3f2;
+    --ship-cove-300: #b8d1e9;
+    --ship-cove-400: #9bb7de;
+    --ship-cove-500: #829ed2;
+    --ship-cove-600: #758bc7;
+    --ship-cove-700: #586daa;
+    --ship-cove-800: #495a8a;
+    --ship-cove-900: #404d6f;
+    --ship-cove-950: #262d40;
+}
+
+.instructions {
+    width: 90%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 10px;
+}
+.instructions-container {
+    width: 60%;
+}
+h1 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+ol {
+    list-style-type: none;
+    counter-reset: step;
+    padding: 0;
+}
+li {
+    counter-increment: step;
+    margin-bottom: 10px;
+}
+li:before {
+    content: counter(step);
+    background-color: var(--ship-cove-900);
+    color: #fff;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+ul li {
+    margin-left: 30px;
+}
+
+li img {
+    width: 80%;
+}
+
+li h5 > span {
+    font-weight: bold;
+}
+
+@media (width <= 600px){
+    .instructions {
+        width: 90%;
+        height: auto;
+        padding: 5px;
+        border-radius: 10px;
+        position: relative;
+        top: 0;
+    }
+    .instructions-container {
+        width: 80%;
+    }
+}

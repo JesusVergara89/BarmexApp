@@ -1,0 +1,35 @@
+* {
+  font-family: "Twemoji Country Flags", BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --ship-cove-50: #f2f7fb;
+  --ship-cove-100: #e7f1f8;
+  --ship-cove-200: #d3e3f2;
+  --ship-cove-300: #b8d1e9;
+  --ship-cove-400: #9bb7de;
+  --ship-cove-500: #829ed2;
+  --ship-cove-600: #758bc7;
+  --ship-cove-700: #586daa;
+  --ship-cove-800: #495a8a;
+  --ship-cove-900: #404d6f;
+  --ship-cove-950: #262d40;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ship-cove-50);
+}
+
+
+.SolarApp {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

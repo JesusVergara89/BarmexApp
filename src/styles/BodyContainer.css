@@ -1,0 +1,68 @@
+:root {
+    --ship-cove-50: #f2f7fb;
+    --ship-cove-100: #e7f1f8;
+    --ship-cove-200: #d3e3f2;
+    --ship-cove-300: #b8d1e9;
+    --ship-cove-400: #9bb7de;
+    --ship-cove-500: #829ed2;
+    --ship-cove-600: #758bc7;
+    --ship-cove-700: #586daa;
+    --ship-cove-800: #495a8a;
+    --ship-cove-900: #404d6f;
+    --ship-cove-950: #262d40;
+}
+
+.body-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 120px;
+}
+
+.calculator {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.information{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (width <= 600px){
+    .body-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 80px;
+    }
+    
+    .calculator {
+        width: 100%;
+        height: auto;
+        display: flex;
+    }
+    
+    .information{
+        width: 100%;
+        height: auto;
+        display: flex;
+    }
+}
