@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import useBateries from "../hooks/useBateries"
 import useInverter from "../hooks/useInverter"
 import usePanels from "../hooks/usePanels"
@@ -17,12 +17,6 @@ const MainConditions = [
     { label: '400 W', value: 400 },
     { label: '500 W', value: 500 }
 ]
-
-const MainConditionsVol = [
-    { label: '12 v', value: 12 },
-    { label: '24 v', value: 24 },
-    { label: '48 v', value: 48 }
-]
 const MainConditionsBattery = [
     { label: '250 Ah', value: 250 },
     { label: '200 Ah', value: 200 },
@@ -37,7 +31,7 @@ const invertersArray = [
     { label: '700 W', value: 700 }
 ]
 
-const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsuption, autonomy_Days, propIrradiation, setStateTestBudget, stateTestBudget }) => {
+const CardOfBudget = ({ consumptionOverDimension, autonomy_Days, propIrradiation}) => {
 
     const panels = usePanels()
 
@@ -73,24 +67,6 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
                     number = data.Max
                 }
             })
-        }
-        return number
-    }
-
-    const substractionFunctionForAdditionalRegulator = (value) => {
-        let number
-        if (value >= 200) {
-            let aFractionNumberOfQuatity = value / 200
-            let aIntegerPart = parseInt(aFractionNumberOfQuatity)
-            let aFractionPartFromQuantity = aFractionNumberOfQuatity - aIntegerPart
-            let dataToAnalize = aFractionPartFromQuantity * 200
-            argumento.map(data => {
-                if (dataToAnalize <= data.Max && dataToAnalize > data.Min) {
-                    number = data.Max
-                }
-            })
-        } else {
-            number = 0
         }
         return number
     }
@@ -206,6 +182,7 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     let Valueofbateria = []
     let Valueofregulador = []
     let Valueofinversor = []
+    let ValueOfpanelFilter = []
     let argumentoPotencia = [
         { Min: 0, Max: 1900, value: 12 },
         { Min: 1900, Max: 4000, value: 24 }
@@ -229,6 +206,8 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     let PanelTension = panels.filter(data => data.Voltaje <= TensionSystem)
     //Operacion paneles
     PanelTension.map(panel => {
+        let FilMainConditions = MainConditions.filter(power => power.value === panel.Power)
+        ValueOfpanelFilter.push(FilMainConditions[0])//filtrado de la potencia de los pnales referente al voltaje del sistema
         let powerOfPanels = panel.Power
         let NPa = Math.ceil(consumptionOverDimension / (0.9 * powerOfPanels * EHS))
         const { ValueP, NP, ValueS, NAd, N } = CalculoCircuito(panel.Voltaje, panel.Isc, NPa)
@@ -344,7 +323,6 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
     const functionShowBudget = () => setBudgetChange(!budgetChange)
     const previous_Function = () => setBudgetChange(false)
     const next_Function = () => setBudgetChange(true)
-
     return (
         <article className='general-budget' >
 
@@ -372,7 +350,7 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
                 <h3 className='Select-main'>Selección panel</h3>
 
                 <Select className='select-panel-select'
-                    options={MainConditions}
+                    options={ValueOfpanelFilter}
                     onChange={handleSelectionChange}
                 />
 
@@ -433,7 +411,7 @@ const CardOfBudget = ({ consumptionOverDimension, arrayOfCurrent, largerConsupti
                     </div>
 
                 </div>
-                
+
                 <h3 className='Select-main'>El regulador asociado es</h3>
 
                 <div className='budget-panel-quantity'>

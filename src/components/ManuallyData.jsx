@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import useIrradiation from '../hooks/useIrradiation'
 import { useForm } from 'react-hook-form'
 import Select from 'react-select';
@@ -44,13 +44,9 @@ const ManuallyData = () => {
         { label: 'Vaupes', value: 32 },
         { label: 'Vichada', value: 33 }
     ]
-
     const [location, setLocation] = useState()
     const [location1, setLocation1] = useState()
-    const [acceptIN, setAcceptIN] = useState(false)
     const [lookingIrradiation, setLookingIrradiation] = useState()
-    const [statetest, setStatetest] = useState()
-    const [stateTestBudget, setStateTestBudget] = useState()
 
 
     const handleSelectionIrradiation = ({ value }) => { //function to pass the setstates(setLookingIrradiation) for keep the information from selector
@@ -127,19 +123,7 @@ const ManuallyData = () => {
         consumption6: "0",
         consumption7: "0"
     }
-
-    const defaultReset = {
-        autonomy: "",
-        consumption1: "",
-        consumption2: "",
-        consumption3: "",
-        consumption4: "",
-        consumption5: "",
-        consumption6: "",
-        consumption7: ""
-    }
-
-    const { register, handleSubmit, reset, formState: { errors, isSubmitted }, watch
+    const { register, handleSubmit, formState: { errors, isSubmitted }, watch
     } = useForm()
     const [dataOrigin, setDataOrigin] = useState(defaultData)
     const [isShow, setIsShow] = useState(false)
@@ -147,7 +131,6 @@ const ManuallyData = () => {
 
     const submit = (data) => {
         setDataOrigin(data)
-        //reset(defaultReset)
         setIsShow(!isShow)
         setCheckFormu(true)
     }
@@ -211,7 +194,6 @@ const ManuallyData = () => {
     const totalShow = Math.round(total / 1000)
     const consumptionOverDimensionShow = Math.round(consumptionOverDimension / 1000)
     const largerConsuptionShow = largerConsuption > 0 ? Math.round(largerConsuption / 1000) : 0
-
     const submit1 = () => {
         if (CheckFormu) {
             setIsShow(!isShow)
@@ -416,25 +398,11 @@ const ManuallyData = () => {
                 consumptionOverDimensionShow={consumptionOverDimensionShow}
                 largerConsuptionShow={largerConsuptionShow}
             />
-            {/*
-            <div className='grid-1'>
-                <h3><span className='span-1'>Average Consuption: </span> <br /> <span className="span-2">{` ${totalShow} kWh/mes`}</span>  </h3>
-
-                <h3><span className='span-1'>Larger consuption: </span> <br /> <span className="span-2">{`${largerConsuptionShow} kWh/mes `}</span> </h3>
-
-                <h3><span className='span-1'>Consuption oversize: </span> <br /> <span className="span-2">{` ${consumptionOverDimensionShow} kWh/día `}</span> </h3>
-    </div>*/}
-
-
             <h3 className='Equipment-selection'>Selección de equipos</h3>
             <CardOfBudget
                 consumptionOverDimension={consumptionOverDimension}
-                arrayOfCurrent={arrayOfCurrent}
-                largerConsuption={largerConsuption}
                 autonomy_Days={autonomy_Days}
                 propIrradiation={propIrradiation}
-                setStateTestBudget={setStateTestBudget}
-                stateTestBudget={stateTestBudget}
             />
 
         </article >
